@@ -1,7 +1,6 @@
 package articles_dtos
 
 import (
-	"github.com/lib/pq"
 	"gorm.io/gorm"
 	"time"
 )
@@ -23,6 +22,21 @@ type ArticleResponse struct {
 	Content               string
 	Topic                 string
 	Draft                 bool
-	Likes                 pq.Int32Array `gorm:"type:integer[]"`
 	HasConnectedUserLiked bool
+	Likes                 []RecordLike `gorm:"foreignKey:ArticleID"`
+	Views                 []RecordView `gorm:"foreignKey:ArticleID"`
+}
+
+type RecordView struct {
+	ID        uint `gorm:"primaryKey"`
+	ArticleID uint // Foreign key
+	UserId    int32
+	LikeTime  time.Time
+}
+
+type RecordLike struct {
+	ID        uint `gorm:"primaryKey"`
+	ArticleID uint // Foreign key
+	UserId    int32
+	LikeTime  time.Time
 }
