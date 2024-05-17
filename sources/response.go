@@ -40,3 +40,15 @@ type RecordLike struct {
 	UserId    int32
 	LikeTime  time.Time
 }
+
+type BookmarksResponse struct {
+	Id          uint `gorm:"primarykey"`
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	DeletedAt   gorm.DeletedAt `gorm:"index"`
+	UserId      int32
+	Title       string
+	Articles    []ArticleResponse
+	IsPrivate   bool
+	Description string
+}
